@@ -7,8 +7,8 @@ export default function Document() {
         <title>OpenTable</title>
       </Head>
       <body>
-        <Main />
-        <NextScript />
+        <Main/>
+        <NextScript/>
       </body>
     </Html>
   )
