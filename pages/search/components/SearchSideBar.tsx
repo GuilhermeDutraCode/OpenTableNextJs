@@ -1,20 +1,35 @@
-export default function SearchSideBar(){
+import prisma from "@/lib/prisma"
+import { Cuisine, Location } from "@prisma/client"
+import Link from "next/link"
+
+export default function SearchSideBar({location, cuisine} : {location: Location[], cuisine: Cuisine[]}){
     return(
         <div className="w-1/5">
-        <div className="border-b pb-4">
+        <div className="border-b pb-4 flex flex-col">
         <h1 className="mb-2">Region</h1>
-        <p className="font-light text-reg">Toronto</p>
-        <p className="font-light text-reg">Ottawa</p>
-        <p className="font-light text-reg">Montreal</p>
-        <p className="font-light text-reg">Hamilton</p>
-        <p className="font-light text-reg">Kingston</p>
-        <p className="font-light text-reg">Niagara</p>
+        {location.map(location => (
+            <Link href={{
+                pathname: "/search",
+                query: {
+                    city: location.name
+                },
+            }} className="font-light text-reg capitalize">{location.name}</Link>
+        ))}
+        
         </div>
-        <div className="border-b pb-4 mt-3">
+        <div className="border-b pb-4 mt-3 flex flex-col">
         <h1 className="mb-2">Cuisine</h1>
-        <p className="font-light text-reg">Mexican</p>
-        <p className="font-light text-reg">Italian</p>
-        <p className="font-light text-reg">Chinese</p>
+        {cuisine.map(cuisine => (
+            <Link href={
+                {
+                 pathname: "/search",
+                 query: {
+                    city: cuisine.name
+                },
+                }
+            } className="font-light text-reg capitalize">{cuisine.name}</Link>
+        )
+        )}
         </div>
         <div className="mt-3 pb-4">
         <h1 className="mb-2">Price</h1>
