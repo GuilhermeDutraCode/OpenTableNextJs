@@ -1,7 +1,8 @@
+import { calculateReviewRatingAverage } from "@/utils/calculateReviewRatingAverage";
 import Link from "next/link";
 
 export default function RestaurantCard (restaurant: any){
-    //console.log(restaurant.restaurant)
+     //console.log(restaurant.restaurant.reviews)
 
     const clearCuisineName = () => {
         let cuisine = restaurant.restaurant.cuisine.name
@@ -34,7 +35,22 @@ export default function RestaurantCard (restaurant: any){
             return "$$$"
         } return "$"
     }
+    let review:any = restaurant.restaurant.reviews
 
+    const renderRatingText = () => {   
+        const randomNumber = Math.random();
+        const randomInteger = Math.ceil(randomNumber * 3);
+
+        if(randomInteger === 3){
+            return "Awesome"
+        } else if (randomInteger === 2){
+            return "Good"
+        } else { 
+            return "Bad"
+        }
+    }
+
+    const ratingText = renderRatingText()
     return(
         <div className="border-b flex pb-5">    
             <img
@@ -46,7 +62,7 @@ export default function RestaurantCard (restaurant: any){
                 <h2 className="text-3xl">{restaurant.restaurant.name}</h2>
                 <div className="flex items-start">
                 <div className="flex mb-2">*****</div>
-                <p className="ml-2 text-sm">{clearPrice()}</p>
+                <p className="ml-2 text-sm">{ratingText}</p>
                 </div>
                 <div className="mb-9">
                 <div className="font-light flex text-reg">
@@ -59,6 +75,6 @@ export default function RestaurantCard (restaurant: any){
                 <Link href={`/restaurant/${restaurant.restaurant.slug}`}>View more information</Link>
                 </div>
             </div>
-            </div>
+        </div>
     )
 }

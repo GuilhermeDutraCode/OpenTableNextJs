@@ -8,7 +8,7 @@ import RestaurantNavBar from "./components/RestaurantNavBar"
 import NavBar from "@/pages/components/NavBar"
 import ReservationCard from "./components/ReservationCard"
 import Head from "next/head"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, Review } from "@prisma/client"
 
 ///////////////This is how you do a db query and render it to front end
 const prisma = new PrismaClient();    //call Prisma
@@ -25,6 +25,7 @@ export const getServerSideProps = async ({ query }: { query: { slug: string } })
             name: true,
             images: true,
             description: true,
+            reviews: true,
             slug: true
         }
     });
@@ -38,6 +39,7 @@ interface Restaurant {
     id: number;
     name: string;
     images: string[];
+    reviews: Review [];
     description: string;
     slug: string;
   }
@@ -60,12 +62,15 @@ export default function RestaurantDetails({ restaurant }: RestaurantDetailsProps
             <div className="bg-white w-[70%] rounded p-3 shadow">
               <RestaurantNavBar slug = {restaurant.slug}/>
                 <Title name = {restaurant.name}/>
-                <Rating /> 
+                <Rating  reviews={restaurant.reviews} /> 
                 <Description description = {restaurant.description}/>
                 <Images images ={restaurant.images}/>
                 <div>
                 <div>
-               <Reviews />
+                {/* {restaurant.reviews.map( reviews => (
+                    <Reviews reviews={restaurant.reviews}/>
+                ))} */}
+               <Reviews reviews={restaurant.reviews}/>
                 </div>
                 </div>
             </div>

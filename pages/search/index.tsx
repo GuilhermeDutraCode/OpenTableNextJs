@@ -14,7 +14,7 @@ export default  function Search({ restaurant, location, cuisine }: { restaurant:
   const router = useRouter();
   const query = router.query; // Get URL query
   const city = query.city;
-  console.log(restaurant)
+  //const review = 
   return (
     <>
       <Head>
@@ -87,6 +87,7 @@ export const getServerSideProps = async ({ query }: any) => {
         description: true,
         price: true,
         slug: true,
+        reviews: true,
         cuisine: {
           select: {
             id: true,

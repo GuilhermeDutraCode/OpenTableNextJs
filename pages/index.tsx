@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google'
 import NavBar from './components/NavBar';
 import Header from './components/Header';
 import RestaurantCard from './components/RestaurantCard';
-import { Cuisine, Location, PRICE, PrismaClient } from '@prisma/client';
+import { Cuisine, Location, PRICE, PrismaClient, Review } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,6 +16,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       main_image: true,
       cuisine: true,
       slug: true,
+      reviews: true,
       location: true,
       price: true,
       created_at: true,
@@ -58,11 +59,12 @@ interface HomeProps {
   cuisine: Cuisine,
   location: Location,
   price: PRICE
+  reviews: Review[],
   slug: string
 }
 
 export default  function Home({ allRestaurants }: HomeProps) {
-  
+  console.log(allRestaurants)
   return (
     <main className="bg-gray-100 min-h-screen w-screen">
     <main className="max-w-screen-2xl m-auto bg-white">
