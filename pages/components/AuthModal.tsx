@@ -35,7 +35,7 @@ export default function AuthModal({isSignin} :{isSignin: boolean}) {
   }
 
   const [inputs, setInputs] = useState({
-    firstName: "",
+    firstName: "  ",
     lastName:"",
     email:"",
     phone:"",
