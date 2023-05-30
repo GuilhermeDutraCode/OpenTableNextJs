@@ -83,8 +83,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .setExpirationTime("24h")
     .sign(jwtSecret);
 
-    res.status(200).json({
-        hello: user,
+    return res.status(200).json({
+        token,
     });
    }
+   return res.status(404).json("Unknown endpoint")
 }
