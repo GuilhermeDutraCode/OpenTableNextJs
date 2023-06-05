@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import prisma from '../../lib/prisma'
 import { serialize } from "v8";
 import {Cuisine, Location } from "@prisma/client";
+import AuthContext from "../context/AuthContext";
 
 
 export default  function Search({ restaurant, location, cuisine }: { restaurant: any; location: Location[], cuisine: Cuisine[]}) {
@@ -22,6 +23,7 @@ export default  function Search({ restaurant, location, cuisine }: { restaurant:
       </Head>
       <div>
         <main className="bg-gray-100 min-h-screen w-screen">
+          <AuthContext>
           <main className="max-w-screen-2xl m-auto bg-white">
             <NavBar />
             <Header />
@@ -39,6 +41,7 @@ export default  function Search({ restaurant, location, cuisine }: { restaurant:
               </div>
             </div>
           </main>
+          </AuthContext>
         </main>
       </div>
     </>

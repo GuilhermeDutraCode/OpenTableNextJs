@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import RestaurantNavBar from "../components/RestaurantNavBar"
 import Menu from "../components/Menu"
 import { Item, PrismaClient } from "@prisma/client";
+import AuthContext from "@/pages/context/AuthContext";
 
 
 const prisma = new PrismaClient();    //call Prisma
@@ -58,6 +59,7 @@ export default function RestaurantMenu ({ restaurant }: RestaurantDetailsProps) 
     console.log(restaurant.items)
     return (
         <main className="bg-gray-100 min-h-screen w-screen">
+            <AuthContext>
         <main className="max-w-screen-2xl m-auto bg-white">
             {/* NAVBAR */}
                 <NavBar/>
@@ -74,6 +76,7 @@ export default function RestaurantMenu ({ restaurant }: RestaurantDetailsProps) 
             </div>
             {/* DESCRIPTION PORTION */}
         </main>
+        </AuthContext>
         </main>
     )
 }

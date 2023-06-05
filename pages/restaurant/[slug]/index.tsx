@@ -9,6 +9,7 @@ import NavBar from "@/pages/components/NavBar"
 import ReservationCard from "./components/ReservationCard"
 import Head from "next/head"
 import { PrismaClient, Review } from "@prisma/client"
+import AuthContext from "@/pages/context/AuthContext"
 
 ///////////////This is how you do a db query and render it to front end
 const prisma = new PrismaClient();    //call Prisma
@@ -54,6 +55,7 @@ export default function RestaurantDetails({ restaurant }: RestaurantDetailsProps
    
     return (
         <main className="bg-gray-100 min-h-screen w-screen">
+            <AuthContext>
              <Head><title>Restaurant | OpenTable</title></Head><div></div>
         <main className="max-w-screen-2xl m-auto bg-white">
             <NavBar/>          
@@ -79,6 +81,7 @@ export default function RestaurantDetails({ restaurant }: RestaurantDetailsProps
             </div>
             </div>
         </main>
+        </AuthContext>
         </main>
     )
 }

@@ -2,9 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import validator from "validator";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
-import * as jose from "jose"
+import * as jose from "jose";
+import {setCookie} from "cookies-next";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse){
+export default async function signUp(req: NextApiRequest, res: NextApiResponse){
    if(req.method === "POST"){
     const {firstName, lastName, email, phone, city, password } = req.body
     const errors: string[] = [];
@@ -73,7 +74,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             phone,
             email
         },
-    });
+    }); 
+    
     const alg = "HS256";
 
     const jwtSecret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -83,8 +85,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .setExpirationTime("24h")
     .sign(jwtSecret);
 
+    setCookie("jwt", token, {req, res, maxAge: 60 * 6 * 24})
+
     return res.status(200).json({
-        token,
+       firstName: user.first_name,
+       lastName: user.last_name,
+       email: user.email,
+       phone: user.phone,
+       city: user.city,
     });
    }
    return res.status(404).json("Unknown endpoint")

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import RestaurantCard from './components/RestaurantCard';
 import { Cuisine, Location, PRICE, PrismaClient, Review } from '@prisma/client';
 import { GetServerSideProps } from 'next';
+import AuthContext from './context/AuthContext';
 
 const inter = Inter({ subsets: ['latin'] })
 const prisma = new PrismaClient()
@@ -64,9 +65,9 @@ interface HomeProps {
 }
 
 export default  function Home({ allRestaurants }: HomeProps) {
-  console.log(allRestaurants)
   return (
     <main className="bg-gray-100 min-h-screen w-screen">
+      <AuthContext>
     <main className="max-w-screen-2xl m-auto bg-white">
       <NavBar/>
       <main>      
@@ -79,6 +80,7 @@ export default  function Home({ allRestaurants }: HomeProps) {
         </div>       
       </main>
     </main>
+    </AuthContext>
   </main>
   
   )
