@@ -27,7 +27,9 @@ export const getServerSideProps = async ({ query }: { query: { slug: string } })
             images: true,
             description: true,
             reviews: true,
-            slug: true
+            slug: true,
+            open_time: true,
+            close_time: true
         }
     });
  ////Serialized is only needed if some of the info comes in a data type JSON doesnt support eg DATE
@@ -43,6 +45,8 @@ interface Restaurant {
     reviews: Review [];
     description: string;
     slug: string;
+    open_time: string;
+    close_time: string;
   }
 
 
@@ -77,7 +81,11 @@ export default function RestaurantDetails({ restaurant }: RestaurantDetailsProps
                 </div>
             </div>
             <div className="w-[27%] relative text-reg">
-               <ReservationCard />
+               <ReservationCard
+                openTime={restaurant.open_time}
+                closeTime={restaurant.close_time}
+                slug={restaurant.slug}
+               />
             </div>
             </div>
         </main>
