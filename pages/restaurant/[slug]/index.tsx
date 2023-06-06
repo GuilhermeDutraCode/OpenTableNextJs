@@ -10,9 +10,7 @@ import ReservationCard from "./components/ReservationCard"
 import Head from "next/head"
 import { PrismaClient, Review } from "@prisma/client"
 import AuthContext from "@/pages/context/AuthContext"
-
-///////////////This is how you do a db query and render it to front end
-const prisma = new PrismaClient();    //call Prisma
+import prisma from "@/lib/prisma"
 
 export const getServerSideProps = async ({ query }: { query: { slug: string } }) => {
     const { slug } = query;
@@ -56,7 +54,6 @@ interface RestaurantDetailsProps {   //created interface so TypeScript doesnt sh
 
 
 export default function RestaurantDetails({ restaurant }: RestaurantDetailsProps ){   //this is how you pass the props as a parameter
-   
     return (
         <main className="bg-gray-100 min-h-screen w-screen">
             <AuthContext>
